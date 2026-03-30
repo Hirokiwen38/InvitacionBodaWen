@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Boda - Isaías & Wendolyne</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400&family=Playfair+Display:ital,wght@0,400;1,600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-content">
+            <img src="img/Isaias&Wen.png" alt="Logo Isaías & Wen" class="hero-logo">
+            <h1 class="gold-text">Isaías & Wendolyne</h1>
+            <p class="date">23 . MAYO . 2026</p>
+            <div class="divider"></div>
+            <p class="location">Ciudad Juárez, Chih.</p>
+        </div>
+    </header>
+
+    <section class="gallery reveal">
+        <h2 class="gold-text">Nuestra Historia</h2>
+        <div class="photo-swiper-container">
+            <div class="photo-card reveal">
+                <img src="img/foto1.jpg" alt="Wen y novio">
+            </div>
+            <div class="photo-card reveal">
+                <img src="img/foto2.jpg" alt="Anillo de compromiso">
+            </div>
+            <div class="photo-card reveal">
+                <img src="img/foto3.jpg" alt="Momento especial">
+            </div>
+        </div>
+    </section>
+
+    <section class="location-section reveal" id="ubicacion">
+        <h2 class="gold-text">Dónde y Cuándo</h2>
+        <p class="date-large gold-text">23 de Mayo de 2026</p>
+        <p>Recepción en Salón de Eventos AVANTE</p>
+        <p>Cd. Juárez, Chih.</p>
+        
+        <div class="map-container reveal">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3393.84478709337!2d-106.3577363!3d31.6503933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86e74567ac8d9633%3A0xc6651d6be1a8519e!2sSal%C3%B3n%20De%20Eventos%20Avante!5e0!3m2!1ses-419!2smx!4v1711831816766!5m2!1ses-419!2smx" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <a href="https://maps.app.goo.gl/r6L4hN4pD6Gq8zR19" target="_blank" class="btn-outline-gold">Abrir en Google Maps</a>
+    </section>
+
+    <section class="rsvp-section" id="rsvp">
+        <div class="rsvp-card">
+            <h2 class="gold-text">Confirmar Asistencia</h2>
+            <form id="rsvp-form">
+                <input type="text" id="name" placeholder="Tu nombre completo" required>
+                
+                <label for="attendance">¿Asistirás?</label>
+                <select id="attendance" required>
+                    <option value="si">Sí, con gusto</option>
+                    <option value="no">No podré asistir</option>
+                </select>
+
+                <input type="number" id="guests" placeholder="Número de acompañantes" min="0" max="5">
+                
+                <input type="text" id="song" placeholder="Sugerencia de canción 🎵">
+
+                <button type="submit" class="btn-gold">Enviar Confirmación</button>
+            </form>
+            <div id="qr-container" class="hidden">
+                <p>¡Gracias por confirmar! Aquí tienes tu pase:</p>
+                <div id="qrcode"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Hecho con ♡ por Wen</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
