@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             try {
-                const response = await fetch('https://invitacion-boda-wen.vercel.app/confirmar', {
+                const response = await fetch('https://invitacion-boda-wen-six.vercel.app/confirmar', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)
