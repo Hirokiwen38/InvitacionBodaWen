@@ -17,7 +17,6 @@
             <div class="divider"></div>
             <p class="location">Ciudad Juárez, Chih.</p>
             
-            <!-- Cuenta Regresiva -->
             <div class="countdown-container reveal">
                 <div class="countdown-item">
                     <span id="days">00</span>
@@ -39,6 +38,14 @@
             <h2 id="countdown-message" class="hidden gold-text" style="margin-top: 20px;">¡Hoy es el gran día!</h2>
         </div>
     </header>
+
+    <section class="song-section reveal" id="cancion">
+        <div class="song-container">
+            <h2 class="gold-text" style="font-size: 1.8rem; margin-bottom: 10px;">Nuestra Canción</h2>
+            <p style="margin-bottom: 20px; font-size: 0.9rem;">Dale play para acompañar nuestra historia</p>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5qqabIl2vWzo9ApSC317sa?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+    </section>
 
     <section class="gallery reveal">
         <h2 class="gold-text">Nuestra Historia</h2>
@@ -92,6 +99,34 @@
         </div>
     </section>
 
+    <section class="details-section reveal" id="detalles">
+        <div class="details-container">
+            <div class="detail-card">
+                <h3 class="gold-text">Código de Vestimenta</h3>
+                <p style="font-weight: bold; margin-bottom: 15px; letter-spacing: 2px;">SEMI-FORMAL/ELEGANTE</p>
+                <p>Nos encantaría verlos lucir espectaculares. Por favor, dejen el <b>blanco y derivados</b> para la novia, y el <b>lila</b> para las damas de honor.</p>
+                <div class="color-circles">
+                    <div class="color-circle" style="background-color: #FFFFFF; border: 1px solid #e0e0e0;" title="Blanco">
+                        <span class="cross">✕</span>
+                    </div>
+                    <div class="color-circle" style="background-color: #FFFFF0; border: 1px solid #e0e0e0;" title="Ivory">
+                        <span class="cross">✕</span>
+                    </div>
+                    <div class="color-circle" style="background-color: #C8A2C8;" title="Lila">
+                        <span class="cross">✕</span>
+                    </div>
+                </div>
+                <p class="color-note">Colores reservados</p>
+            </div>
+
+            <div class="detail-card">
+                <h3 class="gold-text">Recepción Solo Adultos</h3>
+                <div class="icon-glasses">🥂</div>
+                <p>Amamos a sus pequeños, pero hemos decidido que nuestra boda sea un evento exclusivo para adultos. Agradecemos mucho su comprensión y esperamos que disfruten esta noche libre con nosotros.</p>
+            </div>
+        </div>
+    </section>
+
     <section class="rsvp-section" id="rsvp">
         <div class="rsvp-card">
             <h2 class="gold-text">Confirmar Asistencia</h2>
@@ -123,7 +158,6 @@
         <p>Hecho con ♡ por Isa & Wen</p>
     </footer>
 
-    <!-- Librería para generar Código QR -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="js/script.js"></script>
 </body>

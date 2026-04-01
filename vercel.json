@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/confirmar", "destination": "backend/app.py" }
+  ]
+}
