@@ -1,5 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    function displayQrCode(qrData, nombre, id_qr) {
+        const rsvpForm = document.getElementById('rsvp-form');
+        const qrContainer = document.getElementById('qr-container');
+        
+        if (!rsvpForm || !qrContainer) return;
+    
+        rsvpForm.classList.add('hidden');
+        qrContainer.classList.remove('hidden');
+        
+        const qrCodeDiv = document.getElementById('qrcode');
+        qrCodeDiv.innerHTML = '';
+    
+        try {
+            new QRCode(qrCodeDiv, {
+                text: qrData,
+                width: 200,
+                height: 200,
+                colorDark : "#1A1A1A", 
+                colorLight : "#FFFFFF", 
+                correctLevel : QRCode.CorrectLevel.M 
+            });
+        } catch (qrError) {
+            console.error("Error al dibujar el QR:", qrError);
+            qrCodeDiv.innerHTML = `<p style="font-size: 0.9rem; margin-top: 10px;">Tu ID de pase es:<br><b style="font-size: 1.2rem;">${id_qr}</b></p>`;
+        }
+    
+        const downloadBtn = document.getElementById('btn-download-qr');
+        const newDownloadBtn = downloadBtn.cloneNode(true);
+        downloadBtn.parentNode.replaceChild(newDownloadBtn, downloadBtn);
+    
+        newDownloadBtn.addEventListener('click', () => {
+            const canvas = qrCodeDiv.querySelector('canvas');
+            if (canvas) {
+                const link = document.createElement('a');
+                link.download = `Pase_Boda_${nombre.replace(/\s+/g, '_')}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }
+        });
+    }
+
     function activateReveals() {
         const reveals = document.querySelectorAll('.reveal');
         
@@ -75,6 +116,13 @@ document.addEventListener('DOMContentLoaded', () => {
     activatePhotoSwiperEffect();
     activateCountdown();
 
+    // Revisa si ya existe una confirmación en este navegador
+    const savedConfirmation = localStorage.getItem('weddingConfirmation');
+    if (savedConfirmation) {
+        const { qrData, nombre, id_qr } = JSON.parse(savedConfirmation);
+        displayQrCode(qrData, nombre, id_qr);
+    }
+
     const rsvpForm = document.getElementById('rsvp-form');
     
     if (rsvpForm) {
@@ -104,38 +152,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (result.status === 'success') {
                     
-                    rsvpForm.classList.add('hidden');
-                    const qrContainer = document.getElementById('qr-container');
-                    qrContainer.classList.remove('hidden');
-                    
-                    const qrCodeDiv = document.getElementById('qrcode');
-                    qrCodeDiv.innerHTML = '';
-
                     const qrData = `ID: ${result.id_qr} | Compañìa: ${formData.acompanantes}`;
 
-                    try {
-                        new QRCode(qrCodeDiv, {
-                            text: qrData,
-                            width: 200,
-                            height: 200,
-                            colorDark : "#1A1A1A", 
-                            colorLight : "#FFFFFF", 
-                            correctLevel : QRCode.CorrectLevel.M 
-                        });
-                    } catch (qrError) {
-                        console.error("Error al dibujar el QR:", qrError);
-                        qrCodeDiv.innerHTML = `<p style="font-size: 0.9rem; margin-top: 10px;">Tu ID de pase es:<br><b style="font-size: 1.2rem;">${result.id_qr}</b></p>`;
-                    }
+                    // Guarda la confirmación en el almacenamiento local del navegador
+                    const confirmationToSave = {
+                        qrData: qrData,
+                        nombre: formData.nombre,
+                        id_qr: result.id_qr
+                    };
+                    localStorage.setItem('weddingConfirmation', JSON.stringify(confirmationToSave));
 
-                    document.getElementById('btn-download-qr').addEventListener('click', () => {
-                        const canvas = qrCodeDiv.querySelector('canvas');
-                        if (canvas) {
-                            const link = document.createElement('a');
-                            link.download = `Pase_Boda_${formData.nombre.replace(/\s+/g, '_')}.png`; // Nombre del archivo
-                            link.href = canvas.toDataURL('image/png');
-                            link.click();
-                        }
-                    });
+                    displayQrCode(qrData, formData.nombre, result.id_qr);
                 } else {
                     alert('Hubo un problema: ' + result.message);
                 }
