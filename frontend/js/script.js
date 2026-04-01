@@ -50,12 +50,49 @@ document.addEventListener('DOMContentLoaded', () => {
         cards.forEach(card => observer.observe(card));
     }
 
+    // ==========================================
+    // 3. CUENTA REGRESIVA (COUNTDOWN)
+    // ==========================================
+    function activateCountdown() {
+        // Definimos la fecha de la boda
+        const weddingDate = new Date("May 23, 2026 19:00:00").getTime();
+        
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minsEl = document.getElementById('minutes');
+        const secsEl = document.getElementById('seconds');
+        const countdownContainer = document.querySelector('.countdown-container');
+        const messageEl = document.getElementById('countdown-message');
+
+        if (!daysEl) return;
+
+        const timer = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            // Si la fecha ya llegó, detenemos el contador y mostramos el mensaje
+            if (distance < 0) {
+                clearInterval(timer);
+                countdownContainer.classList.add('hidden');
+                if (messageEl) messageEl.classList.remove('hidden');
+                return;
+            }
+
+            // Cálculos matemáticos de tiempo
+            daysEl.textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            hoursEl.textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            minsEl.textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            secsEl.textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+        }, 1000);
+    }
+
     // Ejecutar funciones visuales
     activateReveals();
     activatePhotoSwiperEffect();
+    activateCountdown();
 
     // ==========================================
-    // 3. CONEXIÓN BACKEND (GUARDAR EN SHEETS)
+    // 4. CONEXIÓN BACKEND (GUARDAR EN SHEETS)
     // ==========================================
     const rsvpForm = document.getElementById('rsvp-form');
     
@@ -88,12 +125,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await response.json();
 
                 if (result.status === 'success') {
-                    alert('¡Gracias por confirmar, ' + formData.nombre + '!');
                     
-                    // Aquí es donde meteremos la lógica del QR en la siguiente fase
-                    // console.log("ID para el QR:", result.id_qr); 
+                    // Ocultamos el formulario y mostramos el contenedor del QR
+                    rsvpForm.classList.add('hidden');
+                    const qrContainer = document.getElementById('qr-container');
+                    qrContainer.classList.remove('hidden');
                     
-                    rsvpForm.reset(); // Limpia el formulario
+                    // Limpiamos el contenedor por si había un QR anterior
+                    const qrCodeDiv = document.getElementById('qrcode');
+                    qrCodeDiv.innerHTML = '';
+
+                    // Reducimos el texto y quitamos saltos de línea para evitar el error "code length overflow"
+                    const qrData = `ID: ${result.id_qr} | Nombre: ${formData.nombre} | Asistencia: ${formData.asistencia} | Pases: ${formData.acompanantes}`;
+
+                    try {
+                        // Generamos el Código QR
+                        new QRCode(qrCodeDiv, {
+                            text: qrData,
+                            width: 200,
+                            height: 200,
+                            colorDark : "#1A1A1A", // Tu color negro
+                            colorLight : "#FFFFFF", // Tu color blanco
+                            correctLevel : QRCode.CorrectLevel.L // Nivel L maximiza el espacio para texto
+                        });
+                    } catch (qrError) {
+                        console.error("Error al dibujar el QR:", qrError);
+                        qrCodeDiv.innerHTML = `<p style="font-size: 0.9rem; margin-top: 10px;">Tu ID de pase es:<br><b style="font-size: 1.2rem;">${result.id_qr}</b></p>`;
+                    }
+
+                    // Lógica para descargar el código QR
+                    document.getElementById('btn-download-qr').addEventListener('click', () => {
+                        const canvas = qrCodeDiv.querySelector('canvas');
+                        if (canvas) {
+                            const link = document.createElement('a');
+                            link.download = `Pase_Boda_${formData.nombre.replace(/\s+/g, '_')}.png`; // Nombre del archivo
+                            link.href = canvas.toDataURL('image/png');
+                            link.click();
+                        }
+                    });
                 } else {
                     alert('Hubo un problema: ' + result.message);
                 }

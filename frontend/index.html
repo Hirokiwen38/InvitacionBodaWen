@@ -16,6 +16,27 @@
             <p class="date">23 . MAYO . 2026</p>
             <div class="divider"></div>
             <p class="location">Ciudad Juárez, Chih.</p>
+            
+            <!-- Cuenta Regresiva -->
+            <div class="countdown-container reveal">
+                <div class="countdown-item">
+                    <span id="days">00</span>
+                    <p>Días</p>
+                </div>
+                <div class="countdown-item">
+                    <span id="hours">00</span>
+                    <p>Hrs</p>
+                </div>
+                <div class="countdown-item">
+                    <span id="minutes">00</span>
+                    <p>Min</p>
+                </div>
+                <div class="countdown-item">
+                    <span id="seconds">00</span>
+                    <p>Seg</p>
+                </div>
+            </div>
+            <h2 id="countdown-message" class="hidden gold-text" style="margin-top: 20px;">¡Hoy es el gran día!</h2>
         </div>
     </header>
 
@@ -59,9 +80,16 @@
         <p>Cd. Juárez, Chih.</p>
         
         <div class="map-container reveal">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3393.84478709337!2d-106.3577363!3d31.6503933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86e74567ac8d9633%3A0xc6651d6be1a8519e!2sSal%C3%B3n%20De%20Eventos%20Avante!5e0!3m2!1ses-419!2smx!4v1711831816766!5m2!1ses-419!2smx" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://maps.google.com/maps?q=31.6471795,-106.3780866&z=17&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-        <a href="https://maps.app.goo.gl/r6L4hN4pD6Gq8zR19" target="_blank" class="btn-outline-gold">Abrir en Google Maps</a>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 20px;">
+            <a href="https://maps.app.goo.gl/xN4WX56uRQD833no6" target="_blank" class="btn-outline-gold" style="margin-top: 0;">Abrir en Google Maps</a>
+            <p>Esta es una lista de regalos que hicimos juntos,</p>
+            <p>no es obligatorio comprar regalo para asistir a la boda</p>
+            <p>solamente si es su voluntad o está en sus posibilidades,</p>
+            <p>les agradecemos de corazón ♡ ⇣</p>
+            <a href="https://www.amazon.com.mx/wedding/guest-view/IFWO5LTVYRE3" target="_blank" class="btn-outline-gold" style="margin-top: 0;">Mesa de Regalos en Amazon</a>
+        </div>
     </section>
 
     <section class="rsvp-section" id="rsvp">
@@ -78,13 +106,15 @@
 
                 <input type="number" id="guests" placeholder="Número de acompañantes" min="0" max="5">
                 
-                <input type="text" id="song" placeholder="Sugerencia de canción 🎵">
+                <input type="text" id="song" placeholder="Sugiere una canción">
 
                 <button type="submit" class="btn-gold">Enviar Confirmación</button>
             </form>
             <div id="qr-container" class="hidden">
-                <p>¡Gracias por confirmar! Aquí tienes tu pase:</p>
+                <h3 class="gold-text" style="margin-bottom: 15px;">¡Confirmación Exitosa!</h3>
+                <p>Guarda este código QR, será tu pase de entrada al evento:</p>
                 <div id="qrcode"></div>
+                <button type="button" id="btn-download-qr" class="btn-gold" style="margin-top: 15px;">Descargar Pase</button>
             </div>
         </div>
     </section>
@@ -93,6 +123,8 @@
         <p>Hecho con ♡ por Isa & Wen</p>
     </footer>
 
+    <!-- Librería para generar Código QR -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
